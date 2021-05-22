@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet-mvc-devops-demo", "aspnet-mvc-devops-demo.csproj", "{DF872B32-7216-4615-98EB-DE9BCCF6BDC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF872B32-7216-4615-98EB-DE9BCCF6BDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF872B32-7216-4615-98EB-DE9BCCF6BDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF872B32-7216-4615-98EB-DE9BCCF6BDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF872B32-7216-4615-98EB-DE9BCCF6BDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D320771-1122-48FD-86E2-DD82131C22C2}
+	EndGlobalSection
+EndGlobal
