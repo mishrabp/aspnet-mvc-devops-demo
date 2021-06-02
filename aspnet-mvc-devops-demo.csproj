@@ -138,7 +138,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Pipelines\aspnet-mvc-devops-demo-ci-build.yaml" />
-    <Content Include="Pipelines\aspnet-mvc-devops-demo-cd-deploy.yaml" />
+    <Content Include="Pipelines\aspnet-mvc-devops-demo-multi-stage.yaml" />
+    <Content Include="Pipelines\deploy-appservice-template.yml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

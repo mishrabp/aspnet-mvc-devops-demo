@@ -1,0 +1,24 @@
+﻿# deploy-appservice-template.yml
+
+parameters:
+- name: environment # don't pass run-time variables
+- name: webAppName
+- name: subscription
+- name: artifactName
+  default: drop
+
+jobs:
+- deployment: DeployAppService
+  environment: ${{ parameters.environment }}
+  strategy: 
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: ${{ parameters.subscription }}
+            appType: 'webApp'
+            WebAppName: ${{ parameters.webAppName }}
+            packageForLinux: '$(Pipeline.Workspace)/${{ parameters.artifactName }}/**/*.zip'
+            enableXmlVariableSubstitution: true
