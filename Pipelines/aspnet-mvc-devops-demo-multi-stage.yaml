@@ -30,7 +30,8 @@ stages:
       name: "MyBuildAgents"
       vmImage: 'windows-latest'
       demands:
-      - agent.name -name devopsnode3windowsvm
+      - myCustomCapability   # check for existence of capability
+      - agent.compiler -equals aspnet # check for specific string in capability
 
     steps:
     - task: NuGetToolInstaller@1
@@ -89,7 +90,8 @@ stages:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
     demands:
-    - agent.name -name devopsnode3windowsvm
+    - myCustomCapability   # check for existence of capability
+    - agent.compiler -equals aspnet # check for specific string in capability
   variables: 
     Environment: QA
   jobs:
@@ -106,7 +108,8 @@ stages:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
     demands:
-    - agent.name -name devopsnode3windowsvm
+    - myCustomCapability   # check for existence of capability
+    - agent.compiler -equals aspnet # check for specific string in capability
   variables: 
     Environment: Production
   jobs:
