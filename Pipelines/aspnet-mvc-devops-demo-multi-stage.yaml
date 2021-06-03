@@ -30,7 +30,7 @@ stages:
       name: "MyBuildAgents"
       vmImage: 'windows-latest'
       demands:
-      - agent.compiler -name aspnet
+      - agent.name -name devopsnode3windowsvm
 
     steps:
     - task: NuGetToolInstaller@1
@@ -89,7 +89,7 @@ stages:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
     demands:
-    - agent.compiler -name aspnet
+    - agent.name -name devopsnode3windowsvm
   variables: 
     Environment: QA
   jobs:
@@ -106,7 +106,7 @@ stages:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
     demands:
-    - agent.compiler -name aspnet
+    - agent.name -name devopsnode3windowsvm
   variables: 
     Environment: Production
   jobs:
