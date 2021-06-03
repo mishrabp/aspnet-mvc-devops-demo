@@ -29,6 +29,9 @@ stages:
     pool:
       name: "MyBuildAgents"
       vmImage: 'windows-latest'
+      demands:
+      - agent.compiler -name aspnet
+
     steps:
     - task: NuGetToolInstaller@1
       displayName: 'Use NuGet 4.4.1'
@@ -85,6 +88,8 @@ stages:
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
+    demands:
+    - agent.compiler -name aspnet
   variables: 
     Environment: QA
   jobs:
@@ -100,6 +105,8 @@ stages:
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
+    demands:
+    - agent.compiler -name aspnet
   variables: 
     Environment: Production
   jobs:
