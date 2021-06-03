@@ -26,4 +26,4 @@ jobs:
             azureSubscription: ${{ parameters.subscription }}
             appType: 'webApp'
             WebAppName: ${{ parameters.webAppName }}
-            packageForLinux: '$(System.DefaultWorkingDirectory)/${{ parameters.artifactName }}/*.zip'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
