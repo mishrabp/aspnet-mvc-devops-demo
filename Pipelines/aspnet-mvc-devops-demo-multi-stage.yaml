@@ -45,12 +45,7 @@ stages:
       displayName: 'Build solution'
       inputs:
         solution: '$(solution)'
-        msbuildArgs: >-
-            /p:DeployOnBuild=true 
-            /p:WebPublishMethod=Package 
-            /p:PackageAsSingleFile=true 
-            /p:SkipInvalidConfigurations=true 
-            /p:PackageLocation="$(build.artifactStagingDirectory)"'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
         clean: true
@@ -71,7 +66,7 @@ stages:
       continueOnError: true
 
     - task: CopyFiles@2
-      displayName: 'Copy Terraforms to: $(build.artifactstagingdirectory)/Pipelines/Terraform'
+      displayName: 'Copy Terraforms to: $(build.artifactstagingdirectory)/Terraform'
       inputs:
         SourceFolder: Pipelines/Terraform
         TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
