@@ -45,6 +45,7 @@ stages:
       displayName: 'Build solution'
       inputs:
         solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
         clean: true
@@ -69,13 +70,6 @@ stages:
       inputs:
         SourceFolder: Pipelines/Terraform
         TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: '$(artifactName)'
-      condition: succeededOrFailed()
 
 
 
