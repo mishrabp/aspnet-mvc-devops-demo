@@ -29,8 +29,7 @@ stages:
     pool:
       name: "MyBuildAgents"
       vmImage: 'windows-latest'
-      demands:
-      - Agent.Name -in (devopsnode3windowsvm) 
+      demands: VisualStudio 
 
     steps:
     - task: NuGetToolInstaller@1
@@ -88,8 +87,7 @@ stages:
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
-    demands:
-    - Agent.Name -in (devopsnode3windowsvm) 
+    demands: VisualStudio 
 
   variables: 
     Environment: QA
@@ -106,8 +104,8 @@ stages:
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
-    demands:
-    - Agent.Name -in (devopsnode3windowsvm) 
+    demands: VisualStudio
+    
   variables: 
     Environment: Production
   jobs:
