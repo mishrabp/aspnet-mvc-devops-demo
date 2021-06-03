@@ -22,7 +22,7 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'release'
   artifactName: 'drop'
   subscription: 'Visual Studio Ultimate with MSDN'
 

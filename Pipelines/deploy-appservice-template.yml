@@ -17,6 +17,7 @@ jobs:
         - task: DownloadPipelineArtifact@2
           inputs:
             buildType: 'current'
+            downloadType: 'single'
             artifactName: ${{ parameters.artifactName }}
             targetPath: '$(System.DefaultWorkingDirectory)'
         - task: AzureRmWebAppDeployment@4
@@ -25,4 +26,4 @@ jobs:
             azureSubscription: ${{ parameters.subscription }}
             appType: 'webApp'
             WebAppName: ${{ parameters.webAppName }}
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/${{ parameters.artifactName }}/*.zip'
