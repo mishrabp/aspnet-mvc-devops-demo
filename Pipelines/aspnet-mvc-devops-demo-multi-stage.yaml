@@ -82,13 +82,13 @@ stages:
 
 - stage: QA
   dependsOn: Build
+  pool:
+    name: "MyBuildAgents"
+    vmImage: 'windows-latest'
   variables: 
     Environment: QA
   jobs:
   - template: deploy-appservice-template.yml
-    pool:
-      name: "MyBuildAgents"
-      vmImage: 'windows-latest'
     parameters:
       environment: ${{ variables.environment }} 
       webAppName: my-azure-app-service-qa
@@ -97,13 +97,13 @@ stages:
 
 - stage: Production
   dependsOn: QA
+  pool:
+    name: "MyBuildAgents"
+    vmImage: 'windows-latest'
   variables: 
     Environment: Production
   jobs:
   - template: deploy-appservice-template.yml
-    pool:
-      name: "MyBuildAgents"
-      vmImage: 'windows-latest'
     parameters:
       environment: ${{ variables.environment }} 
       webAppName: my-azure-app-service-prod
