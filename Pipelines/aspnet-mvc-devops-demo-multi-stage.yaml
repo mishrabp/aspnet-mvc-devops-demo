@@ -77,6 +77,7 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
         ArtifactName: '$(artifactName)'
+        publishLocation: 'Container'
       condition: succeededOrFailed()
 
 
