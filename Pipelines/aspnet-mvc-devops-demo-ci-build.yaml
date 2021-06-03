@@ -13,6 +13,7 @@ trigger:
     exclude:
     - aspnet-mvc-devops-demo/Pipelines/*
     - Pipelines/*
+    - .vs/*
 
 pool:
   name: "MyBuildAgents"
