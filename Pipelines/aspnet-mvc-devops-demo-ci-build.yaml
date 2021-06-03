@@ -11,6 +11,7 @@ trigger:
     - main
   paths:
     exclude:
+    - aspnet-mvc-devops-demo/Pipelines/*
     - Pipelines/*
 
 pool:
@@ -64,7 +65,7 @@ stages:
       continueOnError: true
 
     - task: CopyFiles@2
-      displayName: 'Copy Terraforms to: $(build.artifactstagingdirectory)/Pipelines/Terraform'
+      displayName: 'Copy Terraforms to: $(build.artifactstagingdirectory)/Terraform'
       inputs:
         SourceFolder: Pipelines/Terraform
         TargetFolder: '$(build.artifactstagingdirectory)/Terraform'

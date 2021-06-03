@@ -11,6 +11,7 @@ trigger:
     - main
   paths:
     exclude:
+    - aspnet-mvc-devops-demo/Pipelines/*
     - Pipelines/*
 
 pool:
