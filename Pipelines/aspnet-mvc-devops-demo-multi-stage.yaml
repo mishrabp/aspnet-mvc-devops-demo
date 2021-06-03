@@ -15,10 +15,6 @@ trigger:
     - Pipelines/*
     - .vs/*
 
-pool:
-  name: "MyBuildAgents"
-  vmImage: 'windows-latest'
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
@@ -30,6 +26,9 @@ stages:
 - stage: Build
   jobs:
   - job: Build
+    pool:
+      name: "MyBuildAgents"
+      vmImage: 'windows-latest'
     steps:
     - task: NuGetToolInstaller@1
       displayName: 'Use NuGet 4.4.1'
@@ -87,6 +86,9 @@ stages:
     Environment: QA
   jobs:
   - template: deploy-appservice-template.yml
+    pool:
+      name: "MyBuildAgents"
+      vmImage: 'windows-latest'
     parameters:
       environment: ${{ variables.environment }} 
       webAppName: my-azure-app-service-qa
@@ -99,6 +101,9 @@ stages:
     Environment: Production
   jobs:
   - template: deploy-appservice-template.yml
+    pool:
+      name: "MyBuildAgents"
+      vmImage: 'windows-latest'
     parameters:
       environment: ${{ variables.environment }} 
       webAppName: my-azure-app-service-prod
