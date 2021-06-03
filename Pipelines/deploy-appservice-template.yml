@@ -14,11 +14,16 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            buildType: 'current'
+            artifactName: ${{ parameters.artifactName }}
+            targetPath: '$(System.DefaultWorkingDirectory)'
         - task: AzureRmWebAppDeployment@4
           inputs:
             ConnectionType: 'AzureRM'
             azureSubscription: ${{ parameters.subscription }}
             appType: 'webApp'
             WebAppName: ${{ parameters.webAppName }}
-            packageForLinux: '$(Pipeline.Workspace)/${{ parameters.artifactName }}/**/*.zip'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
             enableXmlVariableSubstitution: true
