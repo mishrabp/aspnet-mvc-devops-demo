@@ -26,3 +26,4 @@ jobs:
             appType: 'webApp'
             WebAppName: ${{ parameters.webAppName }}
             Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            enableXmlVariableSubstitution: true
