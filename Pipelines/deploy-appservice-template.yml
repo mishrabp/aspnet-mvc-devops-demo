@@ -25,5 +25,4 @@ jobs:
             azureSubscription: ${{ parameters.subscription }}
             appType: 'webApp'
             WebAppName: ${{ parameters.webAppName }}
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-            enableXmlVariableSubstitution: true
+            Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
