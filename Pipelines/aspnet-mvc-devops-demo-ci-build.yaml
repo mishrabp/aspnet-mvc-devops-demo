@@ -24,6 +24,9 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   artifactName: 'drop'
+  terraformstoragerg: terraformstoragerg
+  terraformstorageaccount: terraformstorageaccount
+  storagekey: updated-at-run-time
 
 stages:
 - stage: Build
