@@ -20,9 +20,6 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
   artifactName: 'drop'
   terraformstoragerg: terraformstoragerg
   terraformstorageaccount: terraformstorageaccount
@@ -49,6 +46,11 @@ stages:
 
 
 - stage: Setup_Infrastructure
+  dependsOn: Build
+  pool:
+    name: "MyBuildAgents"
+    vmImage: 'windows-latest'
+    demands: VisualStudio 
   jobs:
   - job: Terraform
     steps:
@@ -59,13 +61,13 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           #this will create azure resource group for terraform workspace. terraform maintains its state here. 
-          call az group create --location westus --name $(terraformstoragerg)
+          az group create --location westus --name $(terraformstoragerg)
           
-          call az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS
+          az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS
           
-          call az storage container create --name terraform --account-name $(terraformstorageaccount) 
+          az storage container create --name terraform --account-name $(terraformstorageaccount) 
           
-          call az account keys list -q $(terraformstoragerg) -n $(terraformstorageaccount)
+          az account keys list -q $(terraformstoragerg) -n $(terraformstorageaccount)
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'Visual Studio Ultimate with MSDN(1)(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
