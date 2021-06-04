@@ -77,8 +77,6 @@ stages:
         Inline: |
           #Using this script we will fetch storage key which is required in terraform file to authenticate backend storage account 
                     #$key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -AccountName $(terraformstorageaccount)).Value[0]
-                    Import-Module Az.Resources # Imports the PSADPasswordCredential object
-          
                     $Key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -Name $(terraformstorageaccount)).Value[0]
           
                     Write-Host "storage account key 1 = " $Key
