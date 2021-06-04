@@ -57,7 +57,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Visual Studio Ultimate with MSDN - ARM'
+        azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         scriptType: 'batch'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -71,7 +71,7 @@ stages:
           az account keys list -q $(terraformstoragerg) -n $(terraformstorageaccount)
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Visual Studio Ultimate with MSDN - ARM'
+        azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
         inlineScript: |
