@@ -103,7 +103,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: init
-        workingDirectory: '$(System.DefaultWorkingDirectory)/drop/terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         backendServiceArm: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         backendAzureRmResourceGroupName: '$(terraformstoragerg)'
         backendAzureRmStorageAccountName: '$(terraformstorageaccount)'
