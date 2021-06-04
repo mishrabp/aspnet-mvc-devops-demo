@@ -75,8 +75,6 @@ stages:
         ScriptType: 'InlineScript'
         Inline: |
           #Using this script we will fetch storage key which is required in terraform file to authenticate backend storage account 
-                    $PSVersionTable.PSVersion
-                    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
                     #$key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -AccountName $(terraformstorageaccount)).Value[0]
                     $Key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -Name $(terraformstorageaccount)).Value[0]
           
