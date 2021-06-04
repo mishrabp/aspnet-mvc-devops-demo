@@ -80,15 +80,10 @@ stages:
       condition: succeededOrFailed()
 
 
-- stage: Setup_Infra
+- stage: Setup_Infrastructure
   jobs:
-  - job: Setup
+  - job: Terraform
     steps:
-    - task: NuGetToolInstaller@1
-      displayName: 'Use NuGet 4.4.1'
-      inputs:
-        versionSpec: 4.4.1
-      
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'Visual Studio Ultimate with MSDN(1)(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
