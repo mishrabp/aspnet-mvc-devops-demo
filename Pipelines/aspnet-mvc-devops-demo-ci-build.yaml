@@ -45,7 +45,7 @@ stages:
       condition: succeededOrFailed()
 
 
-- stage: Setup_Infrastructure
+- stage: SetupInfrastructure
   dependsOn: Build
   pool:
     name: "MyBuildAgents"
@@ -54,12 +54,14 @@ stages:
   - job: Terraform
     steps:
     - task: DownloadPipelineArtifact@2
+      displayName: 'Download Artifacts'
       inputs:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'drop'
         targetPath: '$(System.DefaultWorkingDirectory)'
     - task: AzureCLI@2
+      displayName: 'Create storage for Terraform'
       inputs:
         azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         scriptType: 'bash'
@@ -75,6 +77,7 @@ stages:
                               az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
 
     - task: AzurePowerShell@5
+      displayName: 'Get the storage key'
       inputs:
         azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         ScriptType: 'InlineScript'
@@ -89,9 +92,11 @@ stages:
         azurePowerShellVersion: latestVersion
         pwsh: true
     - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
       inputs:
         terraformVersion: '0.12.3'
     - task: Bash@3
+      displayName: 'Debug Console'
       inputs:
         targetType: 'inline'
         script: |
@@ -109,3 +114,19 @@ stages:
         backendAzureRmStorageAccountName: '$(terraformstorageaccount)'
         backendAzureRmContainerName: terraform
         backendAzureRmKey: '$(storagekey)'
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform : plan'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform : apply'
+      inputs:
+         provider: 'azurerm'
+         command: 'apply'
+         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+         commandOptions: '-auto-approve'
+         environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
