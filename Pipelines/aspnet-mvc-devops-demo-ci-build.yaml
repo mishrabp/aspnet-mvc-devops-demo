@@ -50,25 +50,24 @@ stages:
   dependsOn: Build
   pool:
     name: "MyBuildAgents"
-    vmImage: 'windows-latest'
-    demands: VisualStudio 
+    demands: node.js 
   jobs:
   - job: Terraform
     steps:
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
-        scriptType: 'batch'
+        scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          REM will create azure resource group for terraform workspace. terraform maintains its state here. 
-                    call az group create --location westus --name $(terraformstoragerg) 
-                    
-                    call az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
-                    
-                    call az storage container create --name terraform --account-name $(terraformstorageaccount) 
-                    
-                    REM call az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+          #will create azure resource group for terraform workspace. terraform maintains its state here. 
+                              az group create --location westus --name $(terraformstoragerg) 
+                              
+                              az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
+                              
+                              az storage container create --name terraform --account-name $(terraformstorageaccount) 
+                              
+                              az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
 
     - task: AzurePowerShell@5
       inputs:
