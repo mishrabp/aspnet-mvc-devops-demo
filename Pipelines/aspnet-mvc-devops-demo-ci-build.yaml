@@ -15,9 +15,6 @@ trigger:
     - Pipelines/*
     - .vs/*
 
-pool:
-  name: "MyBuildAgents"
-  vmImage: 'windows-latest'
 
 variables:
   artifactName: 'drop'
@@ -27,6 +24,10 @@ variables:
 
 stages:
 - stage: Build
+  pool:
+    name: "MyBuildAgents"
+    vmImage: 'windows-latest'
+    demands: VisualStudio 
   jobs:
   - job: Build
     steps:
@@ -50,7 +51,7 @@ stages:
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
-    demands: node.js 
+    demands: VisualStudio 
   jobs:
   - job: Terraform
     steps:
