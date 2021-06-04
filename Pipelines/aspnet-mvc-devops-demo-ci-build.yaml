@@ -20,6 +20,7 @@ variables:
   artifactName: 'drop'
   terraformstoragerg: terraformstoragerg
   terraformstorageaccount: terraformsabpm2021
+  terraformcontainer: tfstate
   storagekey: updated-at-run-time
 
 stages:
@@ -72,9 +73,12 @@ stages:
                               
                               az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
                               
-                              az storage container create --name terraform --account-name $(terraformstorageaccount) 
+                              # Get storage account key
+                              ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP_NAME --account-name $STORAGE_ACCOUNT_NAME --query '[0].value' -o tsv)
+                              az storage container create --name $(terraformcontainer) --account-name $(terraformstorageaccount) --account-key $ACCOUNT_KEY
                               
-                              az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+                              #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+        enabled: true
 
     - task: AzurePowerShell@5
       displayName: 'Get the storage key'
@@ -91,6 +95,8 @@ stages:
                     Write-Host "##vso[task.setvariable variable=storagekey]$Key"
         azurePowerShellVersion: latestVersion
         pwsh: true
+        enabled: false
+
     - task: TerraformInstaller@0
       displayName: 'Install Terraform'
       inputs:

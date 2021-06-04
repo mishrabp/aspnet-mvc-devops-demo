@@ -3,3 +3,5 @@
 /packages
 /.vs
 /.terraform
+**/.terraform
+**/.terraform.lock.hcl
