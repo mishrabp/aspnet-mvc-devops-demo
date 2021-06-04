@@ -68,7 +68,7 @@ stages:
                     
                     call az storage container create --name terraform --account-name $(terraformstorageaccount) 
                     
-                    call az account keys list -q $(terraformstoragerg) -n $(terraformstorageaccount)
+                    call az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
 
     - task: AzurePowerShell@5
       inputs:
