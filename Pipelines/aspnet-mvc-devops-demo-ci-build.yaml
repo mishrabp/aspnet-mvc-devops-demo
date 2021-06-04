@@ -130,3 +130,10 @@ stages:
          workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
          commandOptions: '-auto-approve'
          environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+    
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
