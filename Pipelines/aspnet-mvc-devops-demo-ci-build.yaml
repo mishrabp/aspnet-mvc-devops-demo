@@ -80,7 +80,7 @@ stages:
       condition: succeededOrFailed()
 
 
-- stage: Setup Infra
+- stage: Setup-Infra
   jobs:
   - job: Setup
     steps:
