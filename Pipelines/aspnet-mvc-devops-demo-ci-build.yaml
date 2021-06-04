@@ -83,5 +83,16 @@ stages:
                     Write-Host "##vso[task.setvariable variable=storagekey]$Key"
         azurePowerShellVersion: latestVersion
         pwsh: true
-
-
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.3'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/drop/Terraform'
+        backendServiceArm: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+        backendAzureRmResourceGroupName: '$(terraformstoragerg)'
+        backendAzureRmStorageAccountName: '$(terraformstorageaccount)'
+        backendAzureRmContainerName: 'terraform'
+        backendAzureRmKey: '$(storagekey)'
