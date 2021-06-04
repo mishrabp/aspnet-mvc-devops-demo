@@ -19,7 +19,7 @@ trigger:
 variables:
   artifactName: 'drop'
   terraformstoragerg: terraformstoragerg
-  terraformstorageaccount: terraformsa-bpm2021
+  terraformstorageaccount: terraformsabpm2021
   storagekey: updated-at-run-time
 
 stages:
