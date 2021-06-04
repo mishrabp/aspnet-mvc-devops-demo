@@ -70,10 +70,19 @@ stages:
                     
                     REM call az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
 
-                    key=$(az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount) --query [0].value -o tsv)
-    - script: |
-        echo "value = $key"
-      displayName: 'display variables'
-
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+        ScriptType: 'InlineScript'
+        Inline: |
+          #Using this script we will fetch storage key which is required in terraform file to authenticate backend storage account 
+                    $PSVersionTable.PSVersion
+                    Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+                    #$key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -AccountName $(terraformstorageaccount)).Value[0]
+                    $Key = (Get-AzStorageAccountKey -ResourceGroupName $(terraformstoragerg) -Name $(terraformstorageaccount)).Value[0]
+          
+                    Write-Host "storage account key 1 = " $Key
+                    
+                    Write-Host "##vso[task.setvariable variable=storagekey]$Key"
 
 
