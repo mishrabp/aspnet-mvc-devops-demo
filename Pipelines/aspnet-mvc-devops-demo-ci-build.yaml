@@ -62,11 +62,11 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           REM will create azure resource group for terraform workspace. terraform maintains its state here. 
-          az group create --location westus --name $(terraformstoragerg)
+          az group create --location westus --name $(terraformstoragerg) &&
           
-          az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS
+          az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS &&
           
-          az storage container create --name terraform --account-name $(terraformstorageaccount) 
+          az storage container create --name terraform --account-name $(terraformstorageaccount) && 
           
           az account keys list -q $(terraformstoragerg) -n $(terraformstorageaccount)
     - task: AzureCLI@2
