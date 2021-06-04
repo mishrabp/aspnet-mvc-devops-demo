@@ -71,5 +71,22 @@ stages:
         SourceFolder: Pipelines/Terraform
         TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
 
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: '$(artifactName)'
+        publishLocation: 'Container'
+      condition: succeededOrFailed()
 
 
+- stage: Setup Infra
+  jobs:
+  - job: Setup
+    steps:
+    - task: NuGetToolInstaller@1
+      displayName: 'Use NuGet 4.4.1'
+      inputs:
+        versionSpec: 4.4.1
+      
+    
