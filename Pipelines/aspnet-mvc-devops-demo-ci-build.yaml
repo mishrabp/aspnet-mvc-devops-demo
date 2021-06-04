@@ -26,8 +26,7 @@ stages:
 - stage: Build
   pool:
     name: "MyBuildAgents"
-    vmImage: 'windows-latest'
-    demands: VisualStudio 
+    demands: node.js 
   jobs:
   - job: Build
     steps:
