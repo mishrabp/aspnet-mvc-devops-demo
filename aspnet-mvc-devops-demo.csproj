@@ -137,7 +137,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Pipelines\aspnet-mvc-devops-demo-ci-build.yaml" />
+    <Content Include="Pipelines\terraform-testing.yaml" />
     <Content Include="Pipelines\aspnet-mvc-devops-demo-multi-stage.yaml" />
     <Content Include="Pipelines\deploy-appservice-template.yml" />
     <Content Include="Pipelines\Terraform\TerraStorage.cmd" />
