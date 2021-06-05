@@ -3,7 +3,12 @@
 
 # Pipelibe only builds the node app
 
-trigger: none
+schedules:
+  - cron: "0 1 * * *"
+    displayName: Schedule insider builds
+    branches:
+      include: main
+    always: true
 
 
 variables:
