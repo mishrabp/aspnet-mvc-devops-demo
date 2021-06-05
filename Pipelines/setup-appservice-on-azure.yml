@@ -1,0 +1,87 @@
+﻿# setup-appservice-on-azure.yml
+# It uses terraform to create the required resources into the Azure Cloud.
+
+parameters:
+- name: subscription
+  default: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+- name: terraformstoragerg
+  default: terraformstoragerg
+- name: terraformstorageaccount
+  default: terraformsabpm2021
+- name: terraformcontainer
+  default: terraform
+
+jobs:
+- job: TerraformStorage
+  pool:
+    name: "MyBuildAgents"
+    demands: node.js
+  steps:
+  - task: AzureCLI@2
+    displayName: 'Create storage for Terraform'
+    inputs:
+    azureSubscription: $(subscription) 
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+        #will create azure resource group for terraform workspace. terraform maintains its state here. 
+                            az group create --location westus --name $(terraformstoragerg) 
+                              
+                            az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
+                              
+                            # Get storage account key
+                            ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraformstoragerg)  --account-name $(terraformstorageaccount) --query '[0].value' -o tsv)
+                            az storage container create --name $(terraformcontainer) --account-name $(terraformstorageaccount) --account-key $ACCOUNT_KEY
+                              
+                            #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+    enabled: true
+    continueOnError: true
+
+- job: Terraform
+  displayName: 'Create resources in Azure'
+  pool:
+    name: "MyBuildAgents"
+    demands: VisualStudio
+  steps:
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Artifacts'
+    inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    targetPath: '$(System.DefaultWorkingDirectory)'
+
+  - task: TerraformInstaller@0
+    displayName: 'Install Terraform'
+    inputs:
+    terraformVersion: '0.15.4'
+
+  - task: TerraformTaskV2@2
+    displayName: 'Terraform : init'
+    inputs:
+    provider: 'azurerm'
+    command: init
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+    backendServiceArm: ${{ parameters.subscription }}
+    backendAzureRmResourceGroupName: ${{ parameters.terraformstoragerg }}
+    backendAzureRmStorageAccountName: ${{ parameters.terraformstorageaccount }}
+    backendAzureRmContainerName: ${{ parameters.terraformcontainer }}
+    backendAzureRmKey: 'terraform.tfstate'
+
+  - task: TerraformTaskV2@2
+    displayName: 'Terraform : plan'
+    inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+    environmentServiceNameAzureRM: ${{ parameters.subscription }}
+
+  - task: TerraformTaskV2@2
+    displayName: 'Terraform : apply'
+    inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        commandOptions: '-auto-approve'
+        environmentServiceNameAzureRM: ${{ parameters.subscription }}
+    continueOnError: true

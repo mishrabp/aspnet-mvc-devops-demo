@@ -3,15 +3,7 @@
 
 # Pipelibe only builds the node app
 
-trigger:
-  branches:
-    include:
-    - none
-  paths:
-    exclude:
-    - aspnet-mvc-devops-demo/Pipelines/*
-    - Pipelines/*
-    - .vs/*
+trigger: none
 
 
 variables:
@@ -20,6 +12,7 @@ variables:
   terraformstorageaccount: terraformsabpm2021
   terraformcontainer: terraform
   storagekey: updated-at-run-time
+  subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
 
 stages:
 - stage: Build
@@ -56,7 +49,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Create storage for Terraform'
       inputs:
-        azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+        azureSubscription: $(subscription) 
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -93,7 +86,7 @@ stages:
 #    - task: AzurePowerShell@5
 #      displayName: 'Get the storage key'
 #      inputs:
-#        azureSubscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+#        azureSubscription: '$(subscription)'
 #        ScriptType: 'InlineScript'
 #        Inline: |
           #Using this script we will fetch storage key which is required in terraform file to authenticate backend storage account 
@@ -126,7 +119,7 @@ stages:
         provider: 'azurerm'
         command: init
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-        backendServiceArm: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+        backendServiceArm: '$(subscription)'
         backendAzureRmResourceGroupName: '$(terraformstoragerg)'
         backendAzureRmStorageAccountName: '$(terraformstorageaccount)'
         backendAzureRmContainerName: $(terraformcontainer)
@@ -138,7 +131,7 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+        environmentServiceNameAzureRM: '$(subscription)'
 
     - task: TerraformTaskV2@2
       displayName: 'Terraform : apply'
@@ -147,7 +140,7 @@ stages:
          command: 'apply'
          workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
          commandOptions: '-auto-approve'
-         environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+         environmentServiceNameAzureRM: '$(subscription)'
       continueOnError: true
     
     - task: TerraformTaskV2@2
@@ -157,4 +150,4 @@ stages:
         command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         commandOptions: '-auto-approve'
-        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'   
+        environmentServiceNameAzureRM: '$(subscription)'   

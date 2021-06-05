@@ -20,10 +20,15 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'release'
   artifactName: 'drop'
-  subscription: 'Visual Studio Ultimate with MSDN'
+  terraformstoragerg: terraformstoragerg
+  terraformstorageaccount: terraformsabpm2021
+  terraformcontainer: terraform
+  storagekey: updated-at-run-time
+  subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
 
 stages:
 - stage: Build
+  displayName: 'Build Code'
   jobs:
   - job: Build
     pool:
@@ -81,9 +86,20 @@ stages:
         publishLocation: 'Container'
       condition: succeededOrFailed()
 
+- stage: Infrastructure
+  displayName: 'Setup Infrastrucure in Azure'
+  dependsOn: Build
+  jobs:
+  - template: setup-appservice-on-azure.yml
+    parameters:
+      subscription: $(subscription)
+      terraformstoragerg: $(terraformstoragerg)
+      terraformstorageaccount: $(terraformstorageaccount)
+      terraformcontainer: $(terraformcontainer)
 
 - stage: QA
-  dependsOn: Build
+  displayName: 'Deploy Code to QA'
+  dependsOn: Infrastructure
   pool:
     name: "MyBuildAgents"
     vmImage: 'windows-latest'
@@ -100,6 +116,7 @@ stages:
 
 
 - stage: Production
+  displayName: 'Deploy Code to Prod'
   dependsOn: QA
   pool:
     name: "MyBuildAgents"

@@ -1,4 +1,5 @@
 ﻿# deploy-appservice-template.yml
+# It deploys code into app services on Azure
 
 parameters:
 - name: environment # don't pass run-time variables
