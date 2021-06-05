@@ -20,18 +20,18 @@ jobs:
   - task: AzureCLI@2
     displayName: 'Create storage for Terraform'
     inputs:
-    azureSubscription: $(subscription) 
+    azureSubscription: ${{ parameters.subscription }}
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
         #will create azure resource group for terraform workspace. terraform maintains its state here. 
-                            az group create --location westus --name $(terraformstoragerg) 
+                            az group create --location westus --name ${{ parameters.terraformstoragerg }} 
                               
-                            az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
+                            az storage account create --name ${{ parameters.terraformstorageaccount }} --resource-group ${{ parameters.terraformstoragerg }} --location westus --sku standard_LRS 
                               
                             # Get storage account key
-                            ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraformstoragerg)  --account-name $(terraformstorageaccount) --query '[0].value' -o tsv)
-                            az storage container create --name $(terraformcontainer) --account-name $(terraformstorageaccount) --account-key $ACCOUNT_KEY
+                            ACCOUNT_KEY=$(az storage account keys list --resource-group ${{ parameters.terraformstoragerg }}  --account-name ${{ parameters.terraformstorageaccount }} --query '[0].value' -o tsv)
+                            az storage container create --name ${{ parameters.terraformcontainer }} --account-name ${{ parameters.terraformstorageaccount }} --account-key $ACCOUNT_KEY
                               
                             #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
     enabled: true
@@ -46,35 +46,35 @@ jobs:
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Artifacts'
     inputs:
-    buildType: 'current'
-    downloadType: 'single'
-    artifactName: 'drop'
-    targetPath: '$(System.DefaultWorkingDirectory)'
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        targetPath: '$(System.DefaultWorkingDirectory)'
 
   - task: TerraformInstaller@0
     displayName: 'Install Terraform'
     inputs:
-    terraformVersion: '0.15.4'
+        terraformVersion: '0.15.4'
 
   - task: TerraformTaskV2@2
     displayName: 'Terraform : init'
     inputs:
-    provider: 'azurerm'
-    command: init
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-    backendServiceArm: ${{ parameters.subscription }}
-    backendAzureRmResourceGroupName: ${{ parameters.terraformstoragerg }}
-    backendAzureRmStorageAccountName: ${{ parameters.terraformstorageaccount }}
-    backendAzureRmContainerName: ${{ parameters.terraformcontainer }}
-    backendAzureRmKey: 'terraform.tfstate'
+        provider: 'azurerm'
+        command: init
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        backendServiceArm: ${{ parameters.subscription }}
+        backendAzureRmResourceGroupName: ${{ parameters.terraformstoragerg }}
+        backendAzureRmStorageAccountName: ${{ parameters.terraformstorageaccount }}
+        backendAzureRmContainerName: ${{ parameters.terraformcontainer }}
+        backendAzureRmKey: 'terraform.tfstate'
 
   - task: TerraformTaskV2@2
     displayName: 'Terraform : plan'
     inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-    environmentServiceNameAzureRM: ${{ parameters.subscription }}
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: ${{ parameters.subscription }}
 
   - task: TerraformTaskV2@2
     displayName: 'Terraform : apply'
