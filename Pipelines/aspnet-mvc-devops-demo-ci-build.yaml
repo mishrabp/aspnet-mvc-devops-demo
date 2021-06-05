@@ -99,13 +99,14 @@ stages:
       displayName: 'Install Terraform'
       inputs:
         terraformVersion: '0.15.4'
-    - task: Bash@3
-      displayName: 'Debug Console'
-      inputs:
-        targetType: 'inline'
-        script: |
+
+#    - task: Bash@3
+#      displayName: 'Debug Console'
+#      inputs:
+#        targetType: 'inline'
+#        script: |
           # Write your commands here
-          echo 'Artifcat Path: $(System.DefaultWorkingDirectory)'
+#          echo 'Artifcat Path: $(System.DefaultWorkingDirectory)'
 
     - task: TerraformTaskV2@2
       displayName: 'Terraform : init'
