@@ -13,6 +13,7 @@ parameters:
 
 jobs:
 - job: TerraformStorage
+  displayName: 'Create storage for Terraform'
   pool:
     name: "MyBuildAgents"
     demands: node.js

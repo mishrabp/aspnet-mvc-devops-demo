@@ -25,6 +25,8 @@ variables:
   terraformcontainer: terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+  app-service-qa: 'as-aspnet-mvc-devops-demo-qa'
+  app-service-prod: 'as-aspnet-mvc-devops-demo-prod'
 
 stages:
 - stage: Build
@@ -111,7 +113,7 @@ stages:
   - template: deploy-appservice-template.yml
     parameters:
       environment: ${{ variables.environment }} 
-      webAppName: my-azure-app-service-qa
+      webAppName: ${app-service-qa} 
       subscription: $(subscription)
 
 
@@ -129,5 +131,5 @@ stages:
   - template: deploy-appservice-template.yml
     parameters:
       environment: ${{ variables.environment }} 
-      webAppName: my-azure-app-service-prod
+      webAppName: ${app-service-qa} 
       subscription: $(subscription)
