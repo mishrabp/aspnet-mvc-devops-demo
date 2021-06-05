@@ -4,10 +4,17 @@
 # Pipelibe only builds the node app
 
 schedules:
-  - cron: "0 1 * * *"
+  - cron: "0 1 * * Mon-Sun"
     displayName: Schedule insider builds
     branches:
-      include: main
+      include: 
+      - main
+    always: true
+  - cron: "0 10 * * Mon-Sun"
+    displayName: Schedule insider builds
+    branches:
+      include: 
+      - main
     always: true
 
 
