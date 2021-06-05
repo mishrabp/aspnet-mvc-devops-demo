@@ -62,7 +62,7 @@ resource "azurerm_app_service_plan" "my" {
 
 #Creating an App Service for QA
 resource "azurerm_app_service" "qa" {
-    name = "${app_service_name_prefix}-qa"
+    name = "${var.app_service_name_prefix}-qa"
     location = azurerm_resource_group.my.location
     resource_group_name = azurerm_resource_group.my.name
     app_service_plan_id = azurerm_app_service_plan.my.id 
@@ -85,7 +85,7 @@ resource "azurerm_app_service" "qa" {
 
 #Creating an App Service for QA
 resource "azurerm_app_service" "prod" {
-    name = "${app_service_name_prefix}-prod"
+    name = "${var.app_service_name_prefix}-prod"
     location = azurerm_resource_group.my.location
     resource_group_name = azurerm_resource_group.my.name
     app_service_plan_id = azurerm_app_service_plan.my.id 
