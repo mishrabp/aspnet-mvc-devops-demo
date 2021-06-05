@@ -3,6 +3,8 @@
 
 # Pipelibe only builds the node app
 
+trigger: none
+
 schedules:
   - cron: "0 1 * * Mon-Sun"
     displayName: M-S 1:00 AM CT
