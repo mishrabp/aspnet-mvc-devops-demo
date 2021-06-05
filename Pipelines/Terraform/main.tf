@@ -28,12 +28,12 @@ variable "resource_group_location" {
 }
 
 variable "app_service_plan_name" {
-    default = "my-asp-bpm2021"
+    default = "windows-appserviceplan-free"
     description = "the name of the app service plan"
 }
 
 variable "app_service_name_prefix" {
-    default = "my-asp-bpm2021-app"
+    default = "aspnet-mvc-devops-demo"
     description = "begining part of the app service name"
 }
 
@@ -54,15 +54,15 @@ resource "azurerm_app_service_plan" "my" {
     reserved = false
 
     sku {
-        tier = "Free"
-        size = "F1"
+        tier = "Basic"
+        size = "B1"
     }
 
 }
 
 #Creating an App Service for QA
-resource "azurerm_app_service" "myqa" {
-    name = "${var.app_service_name_prefix}qa"
+resource "azurerm_app_service" "my" {
+    name = "testingbpm2021"
     location = azurerm_resource_group.my.location
     resource_group_name = azurerm_resource_group.my.name
     app_service_plan_id = azurerm_app_service_plan.my.id 
@@ -84,7 +84,7 @@ resource "azurerm_app_service" "myqa" {
 }
 
 output "website_hostname-qa" {
-    value = azurerm_app_service.myqa.default_site_hostname
+    value = azurerm_app_service.my.default_site_hostname
     description = "the hostname of the website"
 }
 
