@@ -20,7 +20,7 @@ variables:
   artifactName: 'drop'
   terraformstoragerg: terraformstoragerg
   terraformstorageaccount: terraformsabpm2021
-  terraformcontainer: tfstate
+  terraformcontainer: terraform
   storagekey: updated-at-run-time
 
 stages:
@@ -107,8 +107,8 @@ stages:
         targetType: 'inline'
         script: |
           # Write your commands here
-          
           echo 'Artifcat Path: $(System.DefaultWorkingDirectory)'
+
     - task: TerraformTaskV2@2
       displayName: 'Terraform : init'
       inputs:
@@ -118,8 +118,9 @@ stages:
         backendServiceArm: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
         backendAzureRmResourceGroupName: '$(terraformstoragerg)'
         backendAzureRmStorageAccountName: '$(terraformstorageaccount)'
-        backendAzureRmContainerName: terraform
+        backendAzureRmContainerName: $(terraformcontainer)
         backendAzureRmKey: 'terraform.tfstate'
+
     - task: TerraformTaskV2@2
       displayName: 'Terraform : plan'
       inputs:
