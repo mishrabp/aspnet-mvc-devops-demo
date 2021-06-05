@@ -23,6 +23,7 @@ variables:
 
 stages:
 - stage: Build
+  displayName: 'Code Build'
   pool:
     name: "MyBuildAgents"
     demands: VisualStudio
@@ -43,22 +44,15 @@ stages:
         publishLocation: 'Container'
       condition: succeededOrFailed()
 
-
-- stage: SetupInfrastructure
+- stage: SetupTerraformStorage
+  displayName: 'Create storage for Terraform'
   dependsOn: Build
   pool:
     name: "MyBuildAgents"
-    demands: VisualStudio
+    demands: node.js
   jobs:
   - job: Terraform
     steps:
-    - task: DownloadPipelineArtifact@2
-      displayName: 'Download Artifacts'
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'drop'
-        targetPath: '$(System.DefaultWorkingDirectory)'
     - task: AzureCLI@2
       displayName: 'Create storage for Terraform'
       inputs:
@@ -78,6 +72,23 @@ stages:
                               #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
         enabled: true
       continueOnError: true
+
+- stage: SetupInfrastructure
+  displayName: 'Setup Infrastructure with Terraform'
+  dependsOn: SetupTerraformStorage
+  pool:
+    name: "MyBuildAgents"
+    demands: VisualStudio
+  jobs:
+  - job: Terraform
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Artifacts'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        targetPath: '$(System.DefaultWorkingDirectory)'
 
 #    - task: AzurePowerShell@5
 #      displayName: 'Get the storage key'
