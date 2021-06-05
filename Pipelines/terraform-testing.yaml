@@ -5,13 +5,13 @@
 
 schedules:
   - cron: "0 1 * * Mon-Sun"
-    displayName: Schedule insider builds
+    displayName: M-S 1:00 AM CT
     branches:
       include: 
       - main
     always: true
   - cron: "0 10 * * Mon-Sun"
-    displayName: Schedule insider builds
+    displayName: M-S 10:00 AM CT
     branches:
       include: 
       - main
