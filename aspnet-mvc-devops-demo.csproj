@@ -140,6 +140,7 @@
     <Content Include="Pipelines\aspnet-mvc-devops-demo-ci-build.yaml" />
     <Content Include="Pipelines\aspnet-mvc-devops-demo-multi-stage.yaml" />
     <Content Include="Pipelines\deploy-appservice-template.yml" />
+    <Content Include="Pipelines\Terraform\TerraStorage.cmd" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -1,14 +1,12 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+# This is a test pipeline to demo terraform - app service creation
+# branch is explicitly marked as none for it not to trigger any check-in.
 
 # Pipelibe only builds the node app
 
 trigger:
   branches:
     include:
-    - main
+    - none
   paths:
     exclude:
     - aspnet-mvc-devops-demo/Pipelines/*
@@ -139,4 +137,11 @@ stages:
          environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
       continueOnError: true
     
-   
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform : destroy'
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        commandOptions: '-auto-approve'
+        environmentServiceNameAzureRM: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'   
