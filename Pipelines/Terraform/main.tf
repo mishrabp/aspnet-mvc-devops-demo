@@ -50,7 +50,7 @@ resource "azurerm_app_service_plan" "my" {
     location = azurerm_resource_group.my.location
     resource_group_name = azurerm_resource_group.my.name
 
-    kind = "Linux"
+    kind = "Windows"
     reserved = true
 
     sku {
@@ -83,34 +83,8 @@ resource "azurerm_app_service" "myqa" {
     }
 }
 
-resource "azurerm_app_service" "myprd" {
-    name = "${var.app_service_name_prefix}prd"
-    location = azurerm_resource_group.my.location
-    resource_group_name = azurerm_resource_group.my.name
-    app_service_plan_id = azurerm_app_service_plan.my.id 
-
-    site_config {
-        dotnet_framework_version = "v4.0"
-        scm_type                 = "LocalGit"
-    }
-    
-    app_settings = {
-        "SOME_KEY" = "some-value"
-    }
-
-    connection_string {
-        name  = "Database"
-        type  = "SQLServer"
-        value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
-    }
-}
-
 output "website_hostname-qa" {
     value = azurerm_app_service.myqa.default_site_hostname
     description = "the hostname of the website"
 }
 
-output "website_hostname-prd" {
-    value = azurerm_app_service.myprd.default_site_hostname
-    description = "the hostname of the website"
-}
