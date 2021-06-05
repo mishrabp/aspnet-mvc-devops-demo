@@ -20,20 +20,20 @@ jobs:
   - task: AzureCLI@2
     displayName: 'Create storage for Terraform'
     inputs:
-    azureSubscription: ${{ parameters.subscription }}
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-        #will create azure resource group for terraform workspace. terraform maintains its state here. 
-                            az group create --location westus --name ${{ parameters.terraformstoragerg }} 
+        azureSubscription: ${{ parameters.subscription }}
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+            #will create azure resource group for terraform workspace. terraform maintains its state here. 
+            az group create --location westus --name ${{ parameters.terraformstoragerg }} 
                               
-                            az storage account create --name ${{ parameters.terraformstorageaccount }} --resource-group ${{ parameters.terraformstoragerg }} --location westus --sku standard_LRS 
+            az storage account create --name ${{ parameters.terraformstorageaccount }} --resource-group ${{ parameters.terraformstoragerg }} --location westus --sku standard_LRS 
                               
-                            # Get storage account key
-                            ACCOUNT_KEY=$(az storage account keys list --resource-group ${{ parameters.terraformstoragerg }}  --account-name ${{ parameters.terraformstorageaccount }} --query '[0].value' -o tsv)
-                            az storage container create --name ${{ parameters.terraformcontainer }} --account-name ${{ parameters.terraformstorageaccount }} --account-key $ACCOUNT_KEY
+            # Get storage account key
+            ACCOUNT_KEY=$(az storage account keys list --resource-group ${{ parameters.terraformstoragerg }}  --account-name ${{ parameters.terraformstorageaccount }} --query '[0].value' -o tsv)
+            az storage container create --name ${{ parameters.terraformcontainer }} --account-name ${{ parameters.terraformstorageaccount }} --account-key $ACCOUNT_KEY
                               
-                            #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+            #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
     enabled: true
     continueOnError: true
 
