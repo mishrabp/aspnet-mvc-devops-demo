@@ -5,7 +5,7 @@ terraform {
   backend "azurerm" {
     resource_group_name   = "terraformstoragerg"
     storage_account_name  = "terraformsabpm2021"
-    container_name        = "terraform"
+    container_name        = "aspnet-mvc-devops-demo-terraform"
     key                   = "terraform.tfstate"
   }
 }
@@ -18,22 +18,22 @@ provider "azurerm" {
 
 #Define variables
 variable "resource_group_name" {
-    default = "rg-tf-testing"
+    default = "rg-aspnet-mvc-devops-demo"
     description = "the name of the resource group"
 }
 
 variable "resource_group_location" {
-    default = "westus"
+    default = "centralus"
     description = "the location of the resource group"
 }
 
 variable "app_service_plan_name" {
-    default = "windows-appserviceplan-free"
+    default = "service-plan-aspnet-mvc-devops-demo"
     description = "the name of the app service plan"
 }
 
 variable "app_service_name_prefix" {
-    default = "aspnet-mvc-devops-demo"
+    default = "as-aspnet-mvc-devops-demo"
     description = "begining part of the app service name"
 }
 
@@ -61,8 +61,31 @@ resource "azurerm_app_service_plan" "my" {
 }
 
 #Creating an App Service for QA
-resource "azurerm_app_service" "my" {
-    name = "testingbpm2021"
+resource "azurerm_app_service" "qa" {
+    name = "${app_service_name_prefix}-qa"
+    location = azurerm_resource_group.my.location
+    resource_group_name = azurerm_resource_group.my.name
+    app_service_plan_id = azurerm_app_service_plan.my.id 
+
+    site_config {
+        dotnet_framework_version = "v4.0"
+        scm_type                 = "LocalGit"
+    }
+    
+    app_settings = {
+        "SOME_KEY" = "some-value"
+    }
+
+    connection_string {
+        name  = "Database"
+        type  = "SQLServer"
+        value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+    }
+}
+
+#Creating an App Service for QA
+resource "azurerm_app_service" "prod" {
+    name = "${app_service_name_prefix}-prod"
     location = azurerm_resource_group.my.location
     resource_group_name = azurerm_resource_group.my.name
     app_service_plan_id = azurerm_app_service_plan.my.id 
@@ -84,7 +107,11 @@ resource "azurerm_app_service" "my" {
 }
 
 output "website_hostname-qa" {
-    value = azurerm_app_service.my.default_site_hostname
+    value = azurerm_app_service.qa.default_site_hostname
     description = "the hostname of the website"
 }
 
+output "website_hostname-prod" {
+    value = azurerm_app_service.prod.default_site_hostname
+    description = "the hostname of the website"
+}
