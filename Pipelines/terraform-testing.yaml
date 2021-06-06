@@ -158,23 +158,23 @@ stages:
         backendAzureRmContainerName: $(terraformcontainer)
         backendAzureRmKey: 'terraform.tfstate'
 
-    - task: TerraformTaskV2@2
-      displayName: 'Terraform : plan'
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-        environmentServiceNameAzureRM: '$(subscription)'
+#    - task: TerraformTaskV2@2
+#      displayName: 'Terraform : plan'
+#      inputs:
+#        provider: 'azurerm'
+#        command: 'plan'
+#        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#        environmentServiceNameAzureRM: '$(subscription)'
 
-    - task: TerraformTaskV2@2
-      displayName: 'Terraform : apply'
-      inputs:
-         provider: 'azurerm'
-         command: 'apply'
-         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-         commandOptions: '-auto-approve'
-         environmentServiceNameAzureRM: '$(subscription)'
-      continueOnError: true
+#    - task: TerraformTaskV2@2
+#      displayName: 'Terraform : apply'
+#      inputs:
+#         provider: 'azurerm'
+#         command: 'apply'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+#         commandOptions: '-auto-approve'
+#         environmentServiceNameAzureRM: '$(subscription)'
+#      continueOnError: true
     
     - task: TerraformTaskV2@2
       displayName: 'Terraform : destroy'
