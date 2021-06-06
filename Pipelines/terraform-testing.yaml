@@ -129,6 +129,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: init
+        commandOptions: '-reconfigure'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         backendServiceArm: '$(subscription)'
         backendAzureRmResourceGroupName: '$(terraformstoragerg)'
