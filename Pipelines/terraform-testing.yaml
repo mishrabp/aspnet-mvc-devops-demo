@@ -33,7 +33,7 @@ stages:
   displayName: 'Code Build'
   pool:
     name: "MyBuildAgents"
-    demands: VisualStudio
+    demands: node.js
   jobs:
   - job: Build
     steps:
@@ -85,7 +85,7 @@ stages:
   dependsOn: SetupTerraformStorage
   pool:
     name: "MyBuildAgents"
-    demands: VisualStudio
+    demands: node.js
   jobs:
   - job: Terraform
     steps:
