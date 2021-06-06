@@ -16,17 +16,27 @@ trigger:
     - .vs/*
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'release'
-  artifactName: 'drop'
-  terraformstoragerg: terraformstoragergp
-  terraformstorageaccount: terraformsabibhu2021
-  terraformcontainer: aspnet-mvc-devops-demo-terraform
-  storagekey: updated-at-run-time
-  subscription: 'Visual Studio Subscription - 113136'
-  app-service-qa: 'aspnet-mvc-devops-demo-qa'
-  app-service-prod: 'aspnet-mvc-devops-demo-prod'
+- group: TerraformVariableGroup
+- name: artifactName
+  value: 'drop'
+- name: terraformstoragerg
+  value: 'terraformstoragergp'
+- name: terraformstorageaccount
+  value: 'terraformsabibhu2021'
+- name: terraformcontainer
+  value: 'aspnet-mvc-devops-demo-terraform'
+- name: storagekey
+  value: 'updated-at-run-time'
+- name: subscription
+  value: 'Visual Studio Subscription - 113136'
+- name: location
+  value: 'westus'
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'release'
 
 stages:
 - stage: Build
