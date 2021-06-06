@@ -20,9 +20,9 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'release'
   artifactName: 'drop'
-  terraformstoragerg: terraformstoragerg
-  terraformstorageaccount: terraformsabpm2021
-  terraformcontainer: terraform
+  terraformstoragerg: terraformstoragergp
+  terraformstorageaccount: terraformsabibhu2021
+  terraformcontainer: aspnet-mvc-devops-demo-terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Subscription - 113136'
   app-service-qa: 'as-aspnet-mvc-devops-demo-qa'
