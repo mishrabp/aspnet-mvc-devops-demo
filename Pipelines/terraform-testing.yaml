@@ -95,6 +95,7 @@ stages:
         targetPath: '$(System.DefaultWorkingDirectory)'
 
     - task: replacetokens@3
+      displayName: 'Replace tokens in terraform'
       inputs:
         rootDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         targetFiles: 'main.tf'
