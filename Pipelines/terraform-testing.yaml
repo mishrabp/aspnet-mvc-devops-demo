@@ -22,12 +22,12 @@ schedules:
 
 variables:
   artifactName: 'drop'
-  terraformstoragerg: terraformstoragerg
-  terraformstorageaccount: terraformsabpm2021
+  terraformstoragerg: terraformstoragergp
+  terraformstorageaccount: terraformsabibhu2021
   terraformcontainer: terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Subscription - 113136'
-  location: 'centralus'
+  location: 'westus'
 
 stages:
 - stage: Build
