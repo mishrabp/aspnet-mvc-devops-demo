@@ -18,7 +18,7 @@ provider "azurerm" {
 
 #Define variables
 variable "resource_group_name" {
-    default = "rg-aspnet-mvc-devops-demo"
+    default = "#{ResourceGroup}#"
     description = "the name of the resource group"
 }
 
