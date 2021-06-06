@@ -23,7 +23,7 @@ variable "resource_group_name" {
 }
 
 variable "resource_group_location" {
-    default = "centralus"
+    default = "westus"
     description = "the location of the resource group"
 }
 
