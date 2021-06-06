@@ -26,7 +26,7 @@ variables:
   terraformstorageaccount: terraformsabibhu2021
   terraformcontainer: aspnet-mvc-devops-demo-terraform
   storagekey: updated-at-run-time
-  subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+  subscription: 'Visual Studio Subscription - 113136'
   location: 'westus'
 
 stages:
@@ -114,7 +114,7 @@ stages:
     - task: TerraformInstaller@0
       displayName: 'Install Terraform'
       inputs:
-        terraformVersion: '0.15.4'
+        terraformVersion: '0.15.5'
 
 #    - task: Bash@3
 #      displayName: 'Debug Console'

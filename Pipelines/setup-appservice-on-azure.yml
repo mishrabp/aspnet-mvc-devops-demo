@@ -3,7 +3,7 @@
 
 parameters:
 - name: subscription
-  default: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+  default: 'Visual Studio Subscription - 113136'
 - name: terraformstoragerg
   default: terraformstoragerg
 - name: terraformstorageaccount
@@ -55,13 +55,14 @@ jobs:
   - task: TerraformInstaller@0
     displayName: 'Install Terraform'
     inputs:
-        terraformVersion: '0.15.4'
+        terraformVersion: '0.15.5'
 
   - task: TerraformTaskV2@2
     displayName: 'Terraform : init'
     inputs:
         provider: 'azurerm'
         command: init
+        commandOptions: '-reconfigure'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         backendServiceArm: ${{ parameters.subscription }}
         backendAzureRmResourceGroupName: ${{ parameters.terraformstoragerg }}
