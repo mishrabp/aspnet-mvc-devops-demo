@@ -52,6 +52,21 @@ jobs:
         artifactName: 'drop'
         targetPath: '$(System.DefaultWorkingDirectory)'
 
+  - task: replacetokens@3
+    displayName: 'Replace tokens in terraform'
+    inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        targetFiles: 'main.tf'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '#{'
+        tokenSuffix: '}#'
+        useLegacyPattern: false
+        enableTransforms: false
+        enableTelemetry: true
+
   - task: TerraformInstaller@0
     displayName: 'Install Terraform'
     inputs:
