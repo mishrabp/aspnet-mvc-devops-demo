@@ -18,6 +18,12 @@ schedules:
       include: 
       - main
     always: true
+  - cron: "0 16 * * Mon-Sun"
+    displayName: M-S 10:00 AM CT
+    branches:
+      include: 
+      - main
+    always: true
 
 variables:
 - group: TerraformVariableGroup
