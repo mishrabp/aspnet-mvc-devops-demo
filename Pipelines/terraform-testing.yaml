@@ -27,7 +27,8 @@ schedules:
 
 variables:
 - group: TerraformVariableGroup
-- group: PipelineVariableGroup
+- name: subscription
+  value: 'Visual Studio Subscription - 113136'
 - name: location
   value: 'westus'
 - name: artifactName
