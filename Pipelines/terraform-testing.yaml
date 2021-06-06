@@ -26,7 +26,7 @@ variables:
   terraformstorageaccount: terraformsabpm2021
   terraformcontainer: terraform
   storagekey: updated-at-run-time
-  subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
+  subscription: 'Visual Studio Subscription - 113136'
 
 stages:
 - stage: Build
