@@ -26,7 +26,7 @@ variables:
   terraformstorageaccount: terraformsabibhu2021
   terraformcontainer: aspnet-mvc-devops-demo-terraform
   storagekey: updated-at-run-time
-  subscription: 'Visual Studio Subscription - 113136'
+  subscription: 'Visual Studio Ultimate with MSDN(97ef1d65-5a13-4f6a-8729-1655275dadf0)'
   location: 'westus'
 
 stages:
@@ -69,15 +69,11 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           #will create azure resource group for terraform workspace. terraform maintains its state here. 
-                              az group create --location $(location) --name $(terraformstoragerg) 
-                              
-                              az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location $(location) --sku standard_LRS 
-                              
-                              # Get storage account key
-                              ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraformstoragerg)  --account-name $(terraformstorageaccount) --query '[0].value' -o tsv)
-                              az storage container create --name $(terraformcontainer) --account-name $(terraformstorageaccount) --account-key $ACCOUNT_KEY
-                              
-                              #az storage account keys list -g $(terraformstoragerg) -n $(terraformstorageaccount)
+          az group create --location $(location) --name $(terraformstoragerg) 
+          az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location $(location) --sku standard_LRS 
+          # Get storage account key
+          ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraformstoragerg)  --account-name $(terraformstorageaccount) --query '[0].value' -o tsv)
+          az storage container create --name $(terraformcontainer) --account-name $(terraformstorageaccount) --account-key $ACCOUNT_KEY
         enabled: true
       continueOnError: true
 
