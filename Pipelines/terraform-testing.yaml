@@ -94,6 +94,20 @@ stages:
         artifactName: 'drop'
         targetPath: '$(System.DefaultWorkingDirectory)'
 
+    - task: replacetokens@3
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        targetFiles: 'main.tf'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '#{'
+        tokenSuffix: '}#'
+        useLegacyPattern: false
+        enableTransforms: false
+        enableTelemetry: true
+
 #    - task: AzurePowerShell@5
 #      displayName: 'Get the storage key'
 #      inputs:
