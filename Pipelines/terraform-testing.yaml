@@ -21,20 +21,12 @@ schedules:
 
 variables:
 - group: TerraformVariableGroup
-- name: artifactName
-  value: 'drop'
-- name: terraformstoragerg
-  value: 'terraformstoragergp'
-- name: terraformstorageaccount
-  value: 'terraformsabibhu2021'
-- name: terraformcontainer
-  value: 'aspnet-mvc-devops-demo-terraform'
-- name: storagekey
-  value: 'updated-at-run-time'
 - name: subscription
   value: 'Visual Studio Subscription - 113136'
 - name: location
   value: 'westus'
+- name: artifactName
+  value: 'drop'
 
 stages:
 - stage: Build
