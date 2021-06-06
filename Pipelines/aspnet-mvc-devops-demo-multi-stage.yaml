@@ -25,8 +25,8 @@ variables:
   terraformcontainer: aspnet-mvc-devops-demo-terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Subscription - 113136'
-  app-service-qa: 'as-aspnet-mvc-devops-demo-qa'
-  app-service-prod: 'as-aspnet-mvc-devops-demo-prod'
+  app-service-qa: 'aspnet-mvc-devops-demo-qa'
+  app-service-prod: 'aspnet-mvc-devops-demo-prod'
 
 stages:
 - stage: Build
