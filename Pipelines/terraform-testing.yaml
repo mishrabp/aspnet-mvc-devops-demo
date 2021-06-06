@@ -27,6 +27,7 @@ variables:
   terraformcontainer: terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Subscription - 113136'
+  location: 'centralus'
 
 stages:
 - stage: Build
@@ -68,9 +69,9 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           #will create azure resource group for terraform workspace. terraform maintains its state here. 
-                              az group create --location westus --name $(terraformstoragerg) 
+                              az group create --location $(location) --name $(terraformstoragerg) 
                               
-                              az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location westus --sku standard_LRS 
+                              az storage account create --name $(terraformstorageaccount) --resource-group $(terraformstoragerg) --location $(location) --sku standard_LRS 
                               
                               # Get storage account key
                               ACCOUNT_KEY=$(az storage account keys list --resource-group $(terraformstoragerg)  --account-name $(terraformstorageaccount) --query '[0].value' -o tsv)
