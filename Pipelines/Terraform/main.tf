@@ -3,8 +3,8 @@
 
 terraform {
   backend "azurerm" {
-    resource_group_name   = "terraformstoragerg"
-    storage_account_name  = "terraformsabpm2021"
+    resource_group_name   = "terraformstoragergp"
+    storage_account_name  = "terraformsabibhu2021"
     container_name        = "aspnet-mvc-devops-demo-terraform"
     key                   = "terraform.tfstate"
   }

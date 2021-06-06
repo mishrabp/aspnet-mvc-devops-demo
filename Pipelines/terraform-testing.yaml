@@ -24,7 +24,7 @@ variables:
   artifactName: 'drop'
   terraformstoragerg: terraformstoragergp
   terraformstorageaccount: terraformsabibhu2021
-  terraformcontainer: terraform
+  terraformcontainer: aspnet-mvc-devops-demo-terraform
   storagekey: updated-at-run-time
   subscription: 'Visual Studio Subscription - 113136'
   location: 'westus'
