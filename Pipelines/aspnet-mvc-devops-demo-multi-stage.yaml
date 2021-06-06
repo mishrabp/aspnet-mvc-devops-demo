@@ -17,14 +17,6 @@ trigger:
 
 variables:
 - group: TerraformVariableGroup
-- name: terraformstoragerg
-  value: 'terraformstoragergp'
-- name: terraformstorageaccount
-  value: 'terraformsabibhu2021'
-- name: terraformcontainer
-  value: 'aspnet-mvc-devops-demo-terraform'
-- name: storagekey
-  value: 'updated-at-run-time'
 - name: subscription
   value: 'Visual Studio Subscription - 113136'
 - name: location
@@ -123,7 +115,7 @@ stages:
   - template: deploy-appservice-template.yml
     parameters:
       environment: ${{ variables.environment }} 
-      webAppName: as-aspnet-mvc-devops-demo-qa
+      webAppName: '$(AppServicePrefix)-qa'
       subscription: $(subscription)
 
 
@@ -141,5 +133,5 @@ stages:
   - template: deploy-appservice-template.yml
     parameters:
       environment: ${{ variables.environment }} 
-      webAppName: as-aspnet-mvc-devops-demo-prod
+      webAppName: '$(AppServicePrefix)-prod'
       subscription: $(subscription)
