@@ -23,17 +23,17 @@ variable "resource_group_name" {
 }
 
 variable "resource_group_location" {
-    default = "westus"
+    default = "#{Location}#"
     description = "the location of the resource group"
 }
 
 variable "app_service_plan_name" {
-    default = "service-plan-aspnet-mvc-devops-demo"
+    default = "#{AppServicePlan}#"
     description = "the name of the app service plan"
 }
 
 variable "app_service_name_prefix" {
-    default = "as-aspnet-mvc-devops-demo"
+    default = "#{AppServicePrefix}#"
     description = "begining part of the app service name"
 }
 
