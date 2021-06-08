@@ -119,19 +119,19 @@ stages:
       subscription: $(subscription)
 
 
-- stage: Production
-  displayName: 'Deploy Code to Prod'
-  dependsOn: QA
-  pool:
-    name: "MyBuildAgents"
-    vmImage: 'windows-latest'
-    demands: VisualStudio
+#- stage: Production
+#  displayName: 'Deploy Code to Prod'
+#  dependsOn: QA
+#  pool:
+#    name: "MyBuildAgents"
+#    vmImage: 'windows-latest'
+#    demands: VisualStudio
     
-  variables: 
-    Environment: Production
-  jobs:
-  - template: deploy-appservice-template.yml
-    parameters:
-      environment: ${{ variables.environment }} 
-      webAppName: '$(AppServicePrefix)-prod'
-      subscription: $(subscription)
+#  variables: 
+#    Environment: Production
+#  jobs:
+#  - template: deploy-appservice-template.yml
+#    parameters:
+#      environment: ${{ variables.environment }} 
+#      webAppName: '$(AppServicePrefix)-prod'
+#      subscription: $(subscription)
