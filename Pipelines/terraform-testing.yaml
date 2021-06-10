@@ -6,20 +6,14 @@
 trigger: none
 
 schedules:
-  - cron: "0 1 * * Mon-Sun"
-    displayName: M-S 1:00 AM CT
+  - cron: "55 21 * * Mon-Sun"
+    displayName: M-S 9:55 PM CT
     branches:
       include: 
       - main
     always: true
-  - cron: "0 10 * * Mon-Sun"
-    displayName: M-S 10:00 AM CT
-    branches:
-      include: 
-      - main
-    always: true
-  - cron: "0 16 * * Mon-Sun"
-    displayName: M-S 10:00 AM CT
+  - cron: "55 21 * * Mon-Sun"
+    displayName: M-S 09:55 AM CT
     branches:
       include: 
       - main
