@@ -89,6 +89,12 @@ stages:
         ArtifactName: '$(artifactName)'
         publishLocation: 'Container'
       condition: succeededOrFailed()
+      
+    - task: WhiteSource@21
+      inputs:
+        cwd: '$(System.DefaultWorkingDirectory)'
+        projectName: 'aspnet-mvc-devops-demo'
+
 
 - stage: Infrastructure
   displayName: 'Setup Infrastrucure in Azure'
