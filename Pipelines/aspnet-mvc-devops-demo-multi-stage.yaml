@@ -31,6 +31,29 @@ variables:
   value: 'drop'
 
 stages:
+- stage: CodeScan
+  displayName: 'Scan Code for Vulnerability'
+  jobs:
+  - job: Build
+    pool:
+      name: "MyBuildAgents"
+      demands: Nodejs 
+    steps:
+    - task: WhiteSource@21
+      displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
+      inputs:
+        cwd: '$(System.DefaultWorkingDirectory)'
+        projectName: 'aspnet-mvc-devops-demo'
+        directScan: true
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'SonarQube'
+        scannerMode: 'CLI'
+        configMode: 'file'
+
+    - task: SonarQubeAnalyze@4
+
+
 - stage: Build
   displayName: 'Build Code'
   jobs:
@@ -60,20 +83,6 @@ stages:
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
         clean: true
-
-    - task: WhiteSource@21
-      displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
-      inputs:
-        cwd: '$(System.DefaultWorkingDirectory)'
-        projectName: 'aspnet-mvc-devops-demo'
-        directScan: true
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'SonarQube'
-        scannerMode: 'CLI'
-        configMode: 'file'
-
-    - task: SonarQubeAnalyze@4
 
     - task: VSTest@2
       displayName: 'Test Assemblies'
