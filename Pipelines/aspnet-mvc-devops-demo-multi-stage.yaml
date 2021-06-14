@@ -67,6 +67,11 @@ stages:
         cwd: '$(System.DefaultWorkingDirectory)'
         projectName: 'aspnet-mvc-devops-demo'
         directScan: true
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'SonarQube'
+        scannerMode: 'CLI'
+        configMode: 'file'
 
     - task: VSTest@2
       displayName: 'Test Assemblies'
