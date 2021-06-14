@@ -37,7 +37,7 @@ stages:
   - job: Build
     pool:
       name: "MyBuildAgents"
-      demands: Nodejs 
+      demands: Node.js 
     steps:
     - task: WhiteSource@21
       displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
