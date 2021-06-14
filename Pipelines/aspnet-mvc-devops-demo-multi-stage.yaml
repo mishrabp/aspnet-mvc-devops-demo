@@ -73,6 +73,8 @@ stages:
         scannerMode: 'CLI'
         configMode: 'file'
 
+    - task: SonarQubeAnalyze@4
+
     - task: VSTest@2
       displayName: 'Test Assemblies'
       inputs:
