@@ -49,7 +49,10 @@ stages:
       inputs:
         SonarQube: 'SonarQube'
         scannerMode: 'CLI'
-        configMode: 'file'
+        configMode: 'manual'
+        cliProjectKey: 'aspnet-mvc-devops-demo'
+        cliProjectName: 'aspnet-mvc-devops-demo'
+        cliSources: '.'
 
     - task: SonarQubeAnalyze@4
 
