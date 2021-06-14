@@ -34,7 +34,7 @@ stages:
 - stage: CodeScan
   displayName: 'Scan Code for Vulnerability'
   jobs:
-  - job: Build
+  - job: Scan
     pool:
       name: "MyBuildAgents"
       demands: Node.js 
