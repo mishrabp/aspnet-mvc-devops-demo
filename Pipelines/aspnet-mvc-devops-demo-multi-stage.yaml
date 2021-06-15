@@ -37,7 +37,7 @@ stages:
   - job: Scan
     pool:
       name: "MyBuildAgents"
-      demands: Node.js 
+      demands: VisualStudio 
     steps:
     - task: WhiteSource@21
       displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
@@ -45,17 +45,25 @@ stages:
         cwd: '$(System.DefaultWorkingDirectory)'
         projectName: 'aspnet-mvc-devops-demo'
         directScan: true
+#    - task: SonarQubePrepare@4
+#      inputs:
+#        SonarQube: 'SonarQube'
+#        scannerMode: 'CLI'
+#        configMode: 'manual'
+#        cliProjectKey: 'aspnet-mvc-devops-demo'
+#        cliProjectName: 'aspnet-mvc-devops-demo'
+#        cliSources: '.'
+#
+#    - task: SonarQubeAnalyze@4
+
     - task: SonarQubePrepare@4
       inputs:
         SonarQube: 'SonarQube'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: 'aspnet-mvc-devops-demo'
-        cliProjectName: 'aspnet-mvc-devops-demo'
-        cliSources: '.'
+        scannerMode: 'MSBuild'
+        projectKey: 'aspnet-mvc-devops-demo'
+        projectName: 'aspnet-mvc-devops-demo'
 
     - task: SonarQubeAnalyze@4
-
 
 - stage: Build
   displayName: 'Build Code'
