@@ -31,20 +31,20 @@ variables:
   value: 'drop'
 
 stages:
-- stage: CodeScan
-  displayName: 'Scan Code for Vulnerability'
-  jobs:
-  - job: Scan
-    pool:
-      name: "MyBuildAgents"
-      demands: VisualStudio 
-    steps:
-    - task: WhiteSource@21
-      displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
-      inputs:
-        cwd: '$(System.DefaultWorkingDirectory)'
-        projectName: 'aspnet-mvc-devops-demo'
-        directScan: true
+#- stage: CodeScan
+#  displayName: 'Scan Code for Vulnerability'
+#  jobs:
+#  - job: Scan
+#    pool:
+#      name: "MyBuildAgents"
+#      demands: VisualStudio 
+#    steps:
+#    - task: WhiteSource@21
+#      displayName: 'Scan vulnerabilities using WhiteSoure Bolt'
+#      inputs:
+#        cwd: '$(System.DefaultWorkingDirectory)'
+#        projectName: 'aspnet-mvc-devops-demo'
+#        directScan: true
 #    - task: SonarQubePrepare@4
 #      inputs:
 #        SonarQube: 'SonarQube'
@@ -55,15 +55,6 @@ stages:
 #        cliSources: '.'
 #
 #    - task: SonarQubeAnalyze@4
-
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'SonarQube'
-        scannerMode: 'MSBuild'
-        projectKey: 'aspnet-mvc-devops-demo'
-        projectName: 'aspnet-mvc-devops-demo'
-
-    - task: SonarQubeAnalyze@4
 
 - stage: Build
   displayName: 'Build Code'
